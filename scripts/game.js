@@ -30,3 +30,22 @@ const playAudio = (selectedButton) => {
   return audio;
 };
 
+//Pressed Toggles
+const togglePress = (toToggle) => {
+  const button_toggle = () => toToggle.classList.toggle("pressed");
+
+  button_toggle();
+
+  setTimeout(button_toggle, 100);
+};
+
+// flashed button is clicked and stored
+const generateSequence = () => {
+  const random_index = Math.floor(Math.random() * game_buttons.length);
+  const selected_button = game_buttons[random_index];
+
+  togglePress(selected_button);
+  playAudio(selected_button).play();
+
+  required_clicks.push(selected_button.id);
+};
