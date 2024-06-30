@@ -71,3 +71,73 @@ const gameOver = () => {
   // starting a new game
   document_body.addEventListener("keypress", level, { once: true });
 };
+
+
+////////// Main functions that will be used in the game
+
+
+// Check the comparison of both arrays, if they are not equal. End the game else continue to the next level.
+const checkResults = (results) => {
+  if (!results) {
+    gameOver();
+  } else {
+    if (required_clicks.length === player_clicks.length) {
+      click_count = 0;
+      level_count++;
+      player_clicks.length = 0;
+      setTimeout(level, 1000);
+    }
+  }
+};
+
+// Button clicks
+
+const handleClick = (e) => {
+  if (gameStarted) {
+    // Push the clicked button to the player array and run the necessary effects
+    click_count++;
+
+    const clicked_button = e.target;
+    togglePress(clicked_button);
+    playAudio(clicked_button).play();
+
+    player_clicks.push(clicked_button.id);
+
+    // Compare array results
+    const results = compareResults();
+
+    checkResults(results);
+
+    // cleaning up button event listeners when a level is cleared to avoid unexpected behavior
+    if (click_count >= level_count) {
+      game_buttons.forEach((button) => {
+        button.removeEventListener("click", handleClick);
+      });
+    }
+  }
+};
+
+
+// whole game loop
+const level = () => {
+  level_title.innerText = `Level ${level_count}`;
+
+  generateSequence();
+
+  game_buttons.forEach((button) => {
+    button.addEventListener("click", handleClick);
+    gameStarted = true;
+  });
+
+};
+
+
+// func to start the game
+const gameStart = () => {
+  document_body.addEventListener("keypress", level, { once: true });
+
+
+};
+
+
+gameStart();
