@@ -49,3 +49,25 @@ const generateSequence = () => {
 
   required_clicks.push(selected_button.id);
 };
+
+//this will reset vars when ending game
+const gameOver = () => {
+  level_title.innerHTML = "Game Over, Press Any Key to Restart";
+
+  document_body.classList.toggle("game-over");
+  const background_audio = new Audio("../sounds/wrong.mp3");
+
+  setTimeout(() => {
+    document_body.classList.toggle("game-over");
+    background_audio.play();
+  }, 100);
+
+  // Resetting necessary variables before starting a new game.
+  level_count = 1;
+  player_clicks.length = 0;
+  required_clicks.length = 0;
+  click_count = 0;
+  gameStarted = false;
+  // starting a new game
+  document_body.addEventListener("keypress", level, { once: true });
+};
