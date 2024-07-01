@@ -14,6 +14,7 @@ const document_body = document.getElementsByTagName("body")[0];
 const level_title = document.getElementById("level-title");
 const game_buttons = document.querySelectorAll(".btn");
 
+
 // Audio function
 const playAudio = (selectedButton) => {
   let audio;
@@ -37,6 +38,14 @@ const togglePress = (toToggle) => {
   button_toggle();
 
   setTimeout(button_toggle, 100);
+};
+
+// functions to compare patterns
+const compareResults = () => {
+  return (
+    player_clicks[player_clicks.length - 1].toString() ===
+    required_clicks[player_clicks.length - 1].toString()
+  );
 };
 
 // flashed button is clicked and stored
@@ -72,8 +81,7 @@ const gameOver = () => {
   document_body.addEventListener("keypress", level, { once: true });
 };
 
-
-////////// Main functions that will be used in the game
+/////////// Main functions that will be used in the game
 
 
 // Check the comparison of both arrays, if they are not equal. End the game else continue to the next level.
